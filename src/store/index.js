@@ -1,4 +1,4 @@
-import { createStore } from "redux"
+import { createStore } from "../redux-nut"
 
 function countReducer(state = 0, action) {
   switch(action.type) {

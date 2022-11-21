@@ -1,4 +1,4 @@
-function createStore(reducer) {
+export default function createStore(reducer) {
   let state
   let callbacks = []
   function getState() {
@@ -6,10 +6,12 @@ function createStore(reducer) {
   }
 
   function subscribe(callback) {
-    let index = callbacks.length
-    callback.push(callback)
+    callbacks.push(callback)
     return () => {
-      callbacks.splice(index, 1)
+      const index = callbacks.indexOf(callback)
+      if (index !== -1) {
+        callbacks.splice(index, 1)
+      }
     }
   }
 
@@ -17,6 +19,8 @@ function createStore(reducer) {
     state = reducer(state, action)
     callbacks.forEach(callback => callback())
   }
+
+  dispatch({ type: Symbol("init") });
 
   return {
     getState,
