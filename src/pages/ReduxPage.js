@@ -21,12 +21,33 @@ export default class ReduxPage extends Component {
     //   store.dispatch({ type: "MINUS" });
     // }, 1000);
 
-    store.dispatch((dispatch) => {
+    store.dispatch((dispatch, getState) => {
       setTimeout(() => {
         dispatch({ type: "MINUS" });
       }, 1000);
     });
   };
+
+  promiseMinus = () => {
+    store.dispatch(
+      Promise.resolve({
+        type: "MINUS",
+        payload: 100,
+      })
+    );
+  };
+
+  mixing = () => {
+    debugger
+    store.dispatch((dispatch, getState) => {
+      setTimeout(() => {
+        dispatch(Promise.resolve({
+          type: "ADD",
+          payload: 100
+        }))
+      }, 1000)
+    })
+  }
 
   render() {
     return (
@@ -35,6 +56,8 @@ export default class ReduxPage extends Component {
         <p>{store.getState()}</p>
         <button onClick={this.add}>add</button>
         <button onClick={this.minus}>minus</button>
+        <button onClick={this.promiseMinus}>promiseMinus</button>
+        <button onClick={this.mixing}>异步+Promise</button>
       </div>
     );
   }

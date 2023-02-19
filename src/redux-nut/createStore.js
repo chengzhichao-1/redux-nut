@@ -1,4 +1,9 @@
-export default function createStore(reducer) {
+export default function createStore(reducer, enhancer) {
+  if (enhancer) {
+    // enhancer用来增强dispatch函数，怎么增强呢，在createStore中增强dispatch
+    // enhancer(createStore)(reducer) 柯里化
+    return enhancer(createStore)(reducer)
+  }
   let state
   let callbacks = []
   function getState() {
