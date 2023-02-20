@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import HooksPage from './pages/HooksPage';
 import ReduxPage from './pages/ReduxPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ReduxPage />
+    <HooksPage />
+    {/* <ReduxPage /> */}
   </React.StrictMode>
 );
 
