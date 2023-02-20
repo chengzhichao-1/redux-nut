@@ -1,13 +1,15 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
-import HooksPage from './pages/HooksPage';
-import ReduxPage from './pages/ReduxPage';
+import store from './store';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HooksPage />
-    {/* <ReduxPage /> */}
+    <Provider store={store} >
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

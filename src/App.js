@@ -1,22 +1,17 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+// import HooksPage from './pages/HooksPage';
+// import ReduxPage from './pages/ReduxPage';
+import ReactReduxPage from './pages/ReactReduxPage';
 
 function App() {
+  // const [cnt, setState] = useState(0)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <HooksPage /> */}
+      {/* <button onClick={() => setState(cnt + 1)}>{"app" + cnt}</button> */}
+      {/* <ReactReduxPage cnt={cnt} /> */}
+      <ReactReduxPage />
+      {/* <ReduxPage /> */}
     </div>
   );
 }

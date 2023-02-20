@@ -4,7 +4,7 @@ export default function combineReducers(reducers) {
     // 我们需要判断state是否改变，改变了才进行订阅更新
     const nextState = {}
     let hasChanged = false
-
+    
     for (const key in reducers) {
       const reducer = reducers[key]
       nextState[key] = reducer(state[key], action)
