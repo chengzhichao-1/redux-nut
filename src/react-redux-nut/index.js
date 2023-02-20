@@ -41,7 +41,7 @@ export const connect =
     if (typeof mapDispatchToProps === "function") {
       dispatchProps = mapDispatchToProps(dispatch);
     } else {
-      dispatchProps = {}
+      dispatchProps = {};
       for (const key in mapDispatchToProps) {
         const action = mapDispatchToProps[key];
         dispatchProps[key] = (...args) => dispatch(action(...args));
@@ -49,7 +49,7 @@ export const connect =
     }
 
     // const [, forceUpdate] = useReducer((x) => x + 1, 0);
-    const forceUpdate = useForceUpdate()
+    const forceUpdate = useForceUpdate();
 
     useLayoutEffect(() => {
       const unSubscribe = subscribe(() => forceUpdate());
@@ -63,11 +63,39 @@ export const connect =
   };
 
 function useForceUpdate() {
-  const [state, setState] = useState(0);
+  const [, setState] = useState(0);
   // useCallback防止把这个update函数传给组件造成频繁更新 进行缓存
   const update = useCallback(() => {
     setState((prev) => prev + 1);
   }, []);
 
   return update;
+}
+
+export function useSelector(selector) {
+  const store = useContext(Context);
+
+  const { getState, subscribe } = store;
+
+  const selectedState = selector(getState());
+
+  const forceUpdate = useForceUpdate();
+
+  useLayoutEffect(() => {
+    const unSubscribe = subscribe(() => forceUpdate());
+
+    return () => {
+      unSubscribe();
+    };
+  }, [subscribe]);
+
+  return selectedState;
+}
+
+export function useDispatch() {
+  const store = useContext(Context);
+
+  const { dispatch } = store;
+
+  return dispatch;
 }
